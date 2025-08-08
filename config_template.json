@@ -1,0 +1,18 @@
+{
+    "discord": {
+        "token": "VOTRE_TOKEN_DISCORD_ICI",
+        "channel_id": 1234567890123456789
+    },
+    "server": {
+        "ip": "IP_DU_SERVEUR",
+        "port": 38200,
+        "password": "MOT_DE_PASSE_SERVEUR"
+    },
+    "ftp": {
+        "host": "IP_FTP",
+        "port": 38231,
+        "user": "UTILISATEUR_FTP",
+        "password": "MOT_DE_PASSE_FTP",
+        "log_path": "Icarus/Config/Saved/Logs/Icarus.log"
+    }
+}

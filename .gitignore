@@ -1,0 +1,54 @@
+# Fichiers Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environnements virtuels
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Fichiers de logs
+*.log
+icarus_bot.log
+
+# Fichiers de configuration sensibles (contenant tokens/mots de passe)
+config.json
+config_sensitive.json
+
+# Fichiers temporaires
+.DS_Store
+Thumbs.db
+
+# Dossiers spécifiques
+icarus-news-bot/
+
+# Fichiers IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Fichiers Windows
+desktop.ini
