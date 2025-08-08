@@ -1,0 +1,58 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/icarus-bot:$COMMIT_SHA', '.']
+  
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/icarus-bot:$COMMIT_SHA']
+  
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'icarus-bot'
+      - '--image'
+      - 'gcr.io/$PROJECT_ID/icarus-bot:$COMMIT_SHA'
+      - '--region'
+      - 'europe-west1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '512Mi'
+      - '--cpu'
+      - '1'
+      - '--max-instances'
+      - '1'
+      - '--set-env-vars'
+      - 'DISCORD_TOKEN=${_DISCORD_TOKEN},CHANNEL_ID=${_CHANNEL_ID},SERVER_IP=${_SERVER_IP},SERVER_PORT=${_SERVER_PORT},SERVER_PASSWORD=${_SERVER_PASSWORD},FTP_HOST=${_FTP_HOST},FTP_PORT=${_FTP_PORT},FTP_USER=${_FTP_USER},FTP_PASS=${_FTP_PASS},LOG_PATH=${_LOG_PATH}'
+
+images:
+  - 'gcr.io/$PROJECT_ID/icarus-bot:$COMMIT_SHA'
+
+# Variables d'environnement à définir dans Google Cloud Build
+# IMPORTANT: Définissez ces variables dans la console Google Cloud Build :
+# - _DISCORD_TOKEN: Votre token Discord
+# - _CHANNEL_ID: ID du canal Discord
+# - _SERVER_IP: IP du serveur Icarus
+# - _SERVER_PORT: Port du serveur
+# - _SERVER_PASSWORD: Mot de passe du serveur
+# - _FTP_HOST: Adresse du serveur FTP
+# - _FTP_PORT: Port FTP
+# - _FTP_USER: Utilisateur FTP
+# - _FTP_PASS: Mot de passe FTP
+# - _LOG_PATH: Chemin vers les logs
+substitutions:
+  _DISCORD_TOKEN: 'VOTRE_TOKEN_DISCORD_ICI'
+  _CHANNEL_ID: 'VOTRE_CHANNEL_ID_ICI'
+  _SERVER_IP: 'VOTRE_SERVER_IP_ICI'
+  _SERVER_PORT: 'VOTRE_SERVER_PORT_ICI'
+  _SERVER_PASSWORD: 'VOTRE_SERVER_PASSWORD_ICI'
+  _FTP_HOST: 'VOTRE_FTP_HOST_ICI'
+  _FTP_PORT: 'VOTRE_FTP_PORT_ICI'
+  _FTP_USER: 'VOTRE_FTP_USER_ICI'
+  _FTP_PASS: 'VOTRE_FTP_PASS_ICI'
+  _LOG_PATH: 'Icarus/Config/Saved/Logs/Icarus.log'
